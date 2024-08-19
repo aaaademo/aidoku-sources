@@ -1,5 +1,5 @@
 [package]
-name = "copymanga"
+name = "aidoku-copymanga"
 version = "0.1.0"
 edition = "2021"
 
@@ -16,11 +16,7 @@ strip = true
 lto = true
 
 [dependencies]
-aes = "0.8.3"
 aidoku = { git = "https://github.com/Aidoku/aidoku-rs", features = ["helpers"] }
-cbc = "0.1.2"
-chinese-number = { version = "0.7.7", default-features = false, features = ["chinese-to-number"] }
+aes = { version = "0.8.2", default-features = false }
+cbc = { version = "0.1.2", features = ["alloc"] }
 hex = { version = "0.4.3", default-features = false, features = ["alloc"] }
-regex = { version = "1.10.3", default-features = false, features = ["unicode"] }
-strum_macros = "0.26.2"
-uuid = { version = "1.4.1", default-features = false }
