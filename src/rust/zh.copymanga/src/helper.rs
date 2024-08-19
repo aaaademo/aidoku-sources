@@ -12,7 +12,7 @@ use crate::crypto;
 const KEY: &[u8; 16] = b"xxxmanga.woo.key";
 
 const WWW_URL: &str = "https://www.mangacopy.com";
-const API_URL: &str = "https://api.mangacopy.com/api/v3";
+const API_URL: &str = "https://www.mangacopy.com";
 
 pub fn decrypt(text: String) -> String {
 	let text = text.as_bytes();
