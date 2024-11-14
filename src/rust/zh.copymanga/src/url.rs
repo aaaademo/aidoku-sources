@@ -10,7 +10,7 @@ use core::fmt::Display;
 use strum_macros::Display;
 
 #[derive(Display)]
-#[strum(prefix = "https://www.mangacopy.com")]
+#[strum(prefix = "http://13.112.120.166:9001")]
 pub enum Url<'a> {
 	/// ## `theme`
 	///
