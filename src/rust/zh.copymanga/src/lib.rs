@@ -6,7 +6,6 @@ mod parser;
 mod url;
 
 use aidoku::{
-	helper::{to_aidoku_error, Regex},
 	error::Result,
 	prelude::{
 		format, get_chapter_list, get_manga_details, get_manga_list, get_page_list, handle_url,
@@ -14,7 +13,8 @@ use aidoku::{
 	std::{defaults::defaults_get, String, Vec},
 	Chapter, DeepLink, Filter, Manga, MangaPageResult, MangaStatus, Page,
 };
-use alloc::string::ToString;
+use alloc::{string::ToString, vec};
+use helper::{to_aidoku_error, Regex};
 use decryptor::EncryptedString;
 use parser::{Element, JsonObj, JsonString, MangaListResponse, NodeArrValue, Part, UuidString};
 use url::Url;
@@ -177,15 +177,21 @@ fn get_page_list(manga_id: String, chapter_id: String) -> Result<Vec<Page>> {
 	}
 	.get_html()?;
 
-	let contentKeyRe = Regex::new(r"var\s+contentKey\s*=\s'(.*?)';").unwrap();
+	let contentKeyRe = Regex::new(r"var\s+contentKey\s*=\s*?'(.*?)';")?;
 
-	if let Some(caps) = contentKeyRe.captures(chapter_html) {
+	let page_arr = if let Some(caps) = contentKeyRe.captures(&chapter_html) {
 		let content_key = &caps[1];
-		let page_arr = content_key
+		content_key
 			.decrypt()?
 			.json()?
-			.as_array()?;
-	} else { return Ok(vec![]) }
+			.as_array()?
+	} else {
+		return Ok(Page {
+			index: 0 as i32,
+			url: [],
+			..Default::default()
+		});
+	};
 
 	let image_format = defaults_get("imageFormat").and_then(|v| v.as_string().map(|v| v.read()))?;
 
