@@ -6,6 +6,7 @@ mod parser;
 mod url;
 
 use aidoku::{
+	helper::{to_aidoku_error, Regex},
 	error::Result,
 	prelude::{
 		format, get_chapter_list, get_manga_details, get_manga_list, get_page_list, handle_url,
@@ -170,15 +171,21 @@ fn get_chapter_list(manga_id: String) -> Result<Vec<Chapter>> {
 fn get_page_list(manga_id: String, chapter_id: String) -> Result<Vec<Page>> {
 	let mut pages = Vec::<Page>::new();
 
-	let page_arr = Url::Chapter {
+	let chapter_html = Url::Chapter {
 		manga_id: &manga_id,
 		chapter_id: &chapter_id,
 	}
-	.get_html()?
-	.get_attr("div.imageData", "contentkey")
-	.decrypt()?
-	.json()?
-	.as_array()?;
+	.get_html()?;
+
+	let contentKeyRe = Regex::new(r"var\s+contentKey\s*=\s'(.*?)';").unwrap();
+
+	if let Some(caps) = contentKeyRe.captures(chapter_html) {
+		let content_key = caps[1];
+		let page_arr = content_key
+			.decrypt()?
+			.json()?
+			.as_array()?;
+	} else { return Ok(vec![]) }
 
 	let image_format = defaults_get("imageFormat").and_then(|v| v.as_string().map(|v| v.read()))?;
 
