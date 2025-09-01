@@ -11,7 +11,7 @@ use strum_macros::{Display, IntoStaticStr};
 
 #[expect(private_interfaces)]
 #[derive(Display)]
-#[strum(prefix = "https://mangacopy.com")]
+#[strum(prefix = "https://www.2025copy.com")]
 pub enum Url<'a> {
 	/// ## `theme`
 	///
@@ -338,8 +338,7 @@ impl Url<'_> {
 	fn get(self) -> Request {
 		Request::get(self.to_string()).header(
 			"User-Agent",
-			"Mozilla/5.0 (Macintosh; Intel Mac OS X 14_7_4) \
-			 AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.3 Safari/605.1.15",
+			"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
 		)
 	}
 }
