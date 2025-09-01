@@ -1,23 +1,23 @@
 [
 	{
 		"type": "group",
-		"title": "Settings",
+		"title": "圖片",
 		"items": [
 			{
 				"type": "select",
-				"key": "imageQuality",
-				"title": "Image Quality",
+				"key": "image.quality",
+				"title": "畫質",
+				"titles": ["低", "中", "高"],
 				"values": ["c800x", "c1200x", "c1500x"],
-				"titles": ["Low", "Medium", "High"],
 				"default": "c1500x"
 			},
 			{
 				"type": "select",
-				"key": "imageFormat",
-				"title": "Image Format",
-				"values": ["jpg", "webp"],
-				"titles": ["JPG", "WebP"],
-				"default": "jpg"
+				"key": "image.format",
+				"title": "格式",
+				"titles": ["高效率", "最相容"],
+				"values": ["webp", "jpg"],
+				"default": "webp"
 			}
 		]
 	}
