@@ -8,7 +8,7 @@ use core::marker::Sized;
 
 type Aes128CbcDec = cbc::Decryptor<Aes128>;
 
-const KEY: &[u8] = b"xxxmanga.woo.key";
+const KEY: &[u8] = b"oppzzivv.nzm.oip";
 
 pub trait EncryptedString {
 	fn decrypt(self) -> Result<Self>
