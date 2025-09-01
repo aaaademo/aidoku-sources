@@ -4,7 +4,7 @@
 		"lang": "zh",
 		"name": "拷貝漫畫",
 		"version": 14,
-		"urls": ["https://webview.mfs.dpdns.org", "https://www.2025copy.com", "https://mangacopy.com", "https://www.mangacopy.com"],
+		"urls": ["https://webview.mfs.dpdns.org"],
 		"nsfw": 1
 	}
 }

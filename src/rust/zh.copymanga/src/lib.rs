@@ -180,7 +180,7 @@ fn get_page_list(manga_id: String, chapter_id: String) -> Result<Vec<Page>> {
 	let contentKeyRe = Regex::new(r"var\s+contentKey\s*=\s'(.*?)';").unwrap();
 
 	if let Some(caps) = contentKeyRe.captures(chapter_html) {
-		let content_key = caps[1];
+		let content_key = &caps[1];
 		let page_arr = content_key
 			.decrypt()?
 			.json()?
