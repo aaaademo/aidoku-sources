@@ -177,21 +177,18 @@ fn get_page_list(manga_id: String, chapter_id: String) -> Result<Vec<Page>> {
 	}
 	.get_html()?;
 
-	let contentKeyRe = Regex::new(r"var\s+contentKey\s*=\s*?'(.*?)';")?;
+	let content_key_re = Regex::new(r"var\s+contentKey\s*=\s*?'(.*?)';")?;
 
-	let page_arr = if let Some(caps) = contentKeyRe.captures(&chapter_html) {
+	let page_arr = if let Some(caps) = content_key_re.captures(&chapter_html) {
 		let content_key = &caps[1];
 		content_key
 			.decrypt()?
 			.json()?
 			.as_array()?
 	} else {
-		return Ok(Page {
-			index: 0 as i32,
-			url: [],
-			..Default::default()
-		});
+		&[]
 	};
+	
 
 	let image_format = defaults_get("imageFormat").and_then(|v| v.as_string().map(|v| v.read()))?;
 
